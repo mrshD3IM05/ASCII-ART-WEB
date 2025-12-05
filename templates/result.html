@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASCII Result</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 900px;
+        }
+
+        h1 {
+            color: #ff7f50;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px #000;
+        }
+
+        pre {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(255,127,80,0.5); /* glow orange */
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 14px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #ff7f50;
+            color: #121212;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            background-color: #ff9b6a;
+            box-shadow: 0 0 15px #ff9b6a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Generated ASCII Art</h1>
+
+        <pre>{{.Result}}</pre>
+
+        <a href="/">Back</a>
+    </div>
+
+</body>
+</html>
