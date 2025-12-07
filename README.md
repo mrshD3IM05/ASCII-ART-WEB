@@ -33,9 +33,40 @@ The core logic resides in reduced complexity steps:
 3.  **Processing**:
     *   REPLACE ALL \r WITH EMPTY STRING.
     *   TRIM THE INPUT STRING TO REMOVE LEADING AND TRAILING NEWLINES.
-    *   CHECKING IF THE INPUT STRING IS EMPTY OR IF IT IS JUST WHITESPACES. IF IT IS, RETURNING THE INPUT STRING AS IS. 
-    *   CHECKING IF WE HAVE 8 LINES PER CHARACTER FOR ALL 95 CHARACTERS AND IF NOT, RETURNING ERROR AND STATUS CODE 400.
+    *   CHECKING IF THE INPUT STRING IS EMPTY OR IF IT IS JUST WHITESPACES. IF IT IS, RETURNING THE INPUT STRING AS IS.
     *   The input string is split by newlines to handle multi-line input.
-    *   For each line of input, the program iterates through the 8 vertical "slices" of the font characters.
+    *   For each line of input, the program iterates through the 8 vertical "slices" of the font characters EXCEPT FOR EMPTY LINES. WE JUST PRINT THE EMPTY LINE AND CONTINUE.
     *   It builds the output line by line: for the first line of the output, it concatenates the 1st line of the ASCII representation for each character in the input string. Then it does the same for the 2nd line, and so on.
 4.  **Rendering**: The constructed ASCII string is sent back to the client and displayed in a `<pre>` tag to preserve formatting.
+
+### Handlers
+
+The backend uses standard HTTP handlers to manage requests and responses.
+
+| Function | Endpoint | Method | Description |
+| :--- | :--- | :--- | :--- |
+| **`indexHandler`** | `/` | `GET` | Serves the home page. It renders `index.html` within the `base.html` layout, displaying the input form. Returns `404 Not Found` for any unknown paths. |
+| **`submitHandler`** | `/ascii-art` | `POST` | Processes form submissions. It validates the request, generates the ASCII art, and renders `result.html` with the output. Errors (e.g., bad request) are handled via `serveError`. |
+| **`serveError`** | N/A | N/A | A utility function used by other handlers to render standardized error pages using `error.html`. |
+
+### Templates
+
+The application utilizes Go's `html/template` package with a modular structure.
+
+*   **`base.html` (Layout)**:
+    *   Acts as the master template containing the common structure (HTML boilerplate, CSS links, header).
+    *   Defines a `{{block "content" .}}{{end}}` placeholder where other templates inject their specific content.
+
+*   **`index.html` (Home)**:
+    *   Renders the main input interface.
+    *   Includes the text area for user input and radio buttons for font selection.
+    *   Fills the "content" block of `base.html`.
+
+*   **`result.html` (Output)**:
+    *   Displays the generated ASCII art inside a `<pre>` tag.
+    *   Provides a navigation link to return to the home page.
+    *   Fills the "content" block of `base.html`.
+
+*   **`error.html` (Error)**:
+    *   Displays user-friendly error messages (e.g., "404 Not Found", "500 Internal Server Error").
+    *   Fills the "content" block of `base.html`.
