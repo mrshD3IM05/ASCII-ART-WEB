@@ -4,7 +4,6 @@ import (
 	"ascii-art-web/backend/ASCII"
 	"html"
 	"html/template"
-	"log"
 	"net/http"
 )
 
@@ -47,11 +46,7 @@ func submitHandler(w http.ResponseWriter, r *http.Request) {
 			Font:     fontName,
 		}
 		w.WriteHeader(http.StatusOK)
-		if err := resultTmpl.ExecuteTemplate(w, "result", data); err != nil {
-			log.Printf("template execution error: %v", err)
-			serveError(w, http.StatusInternalServerError)
-			return
-		}
+		renderTemplate(w, resultTmpl, "result", data)
 
 	case http.StatusNotFound, http.StatusBadRequest:
 		// Render an error page for known client errors

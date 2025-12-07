@@ -45,7 +45,7 @@ The backend uses standard HTTP handlers to manage requests and responses.
 
 | Function | Endpoint | Method | Description |
 | :--- | :--- | :--- | :--- |
-| **`indexHandler`** | `/` | `GET` | Serves the home page. It renders `index.html` within the `base.html` layout, displaying the input form. Returns `404 Not Found` for any unknown paths. |
+| **`indexHandler`** | `/` | `GET` | Serves the home page. It renders `index.html` within the `App.html` layout, displaying the input form. Returns `404 Not Found` for any unknown paths. |
 | **`submitHandler`** | `/ascii-art` | `POST` | Processes form submissions. It validates the request, generates the ASCII art, and renders `result.html` with the output. Errors (e.g., bad request) are handled via `serveError`. |
 | **`serveError`** | N/A | N/A | A utility function used by other handlers to render standardized error pages using `error.html`. |
 
@@ -53,20 +53,20 @@ The backend uses standard HTTP handlers to manage requests and responses.
 
 The application utilizes Go's `html/template` package with a modular structure.
 
-*   **`base.html` (Layout)**:
+*   **`templates/App.html` (Layout)**:
     *   Acts as the master template containing the common structure (HTML boilerplate, CSS links, header).
     *   Defines a `{{block "content" .}}{{end}}` placeholder where other templates inject their specific content.
 
-*   **`index.html` (Home)**:
+*   **`templates/pages/index.html` (Home)**:
     *   Renders the main input interface.
     *   Includes the text area for user input and radio buttons for font selection.
-    *   Fills the "content" block of `base.html`.
+    *   Fills the "content" block of `App.html`.
 
-*   **`result.html` (Output)**:
+*   **`templates/pages/result.html` (Output)**:
     *   Displays the generated ASCII art inside a `<pre>` tag.
     *   Provides a navigation link to return to the home page.
-    *   Fills the "content" block of `base.html`.
+    *   Fills the "content" block of `App.html`.
 
-*   **`error.html` (Error)**:
+*   **`templates/pages/error.html` (Error)**:
     *   Displays user-friendly error messages (e.g., "404 Not Found", "500 Internal Server Error").
-    *   Fills the "content" block of `base.html`.
+    *   Fills the "content" block of `App.html`.

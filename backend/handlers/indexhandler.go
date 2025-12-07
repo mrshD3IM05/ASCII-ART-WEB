@@ -2,13 +2,12 @@ package handlers
 
 import (
 	"html/template"
-	"log"
 	"net/http"
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	// Check if the request path is the root; if not, show 404
-	if r.URL.Path != "/" && r.URL.Path != "/ascii-art" {
+	if r.URL.Path != "/" {
 		serveError(w, http.StatusNotFound)
 		return
 	}
@@ -23,9 +22,5 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		Title: "ASCII Art Web",
 	}
 	w.WriteHeader(http.StatusOK)
-	if err := indexTmpl.ExecuteTemplate(w, "index", data); err != nil {
-		log.Printf("template execution error: %v", err)
-		serveError(w, http.StatusInternalServerError)
-		return
-	}
+	renderTemplate(w, indexTmpl, "index", data)
 }

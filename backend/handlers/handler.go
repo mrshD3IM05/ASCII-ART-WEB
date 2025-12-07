@@ -9,29 +9,22 @@ import (
 // Handler initializes all HTTP routes and parses templates.
 // Call this once during server startup
 func Handler() {
-	var err error
 
-	// Parse the main index page template
-	indexTmpl, err = template.ParseFiles("templates/base.html", "templates/index.html")
-	if err != nil {
-		log.Fatalf("failed to parse index templates: %v", err)
+	// Helper function to parse templates
+	mustParse := func(files ...string) *template.Template {
+		tmpl, err := template.ParseFiles(files...)
+		if err != nil {
+			log.Fatalf("failed to parse templates %v: %v", files, err)
+		}
+		return tmpl
 	}
 
-	// Parse the error page template
-	errorTmpl, err = template.ParseFiles("templates/base.html", "templates/error.html")
-	if err != nil {
-		log.Fatalf("failed to parse error templates: %v", err)
-	}
-
-	// Parse the result page template
-	resultTmpl, err = template.ParseFiles("templates/base.html", "templates/result.html")
-	if err != nil {
-		log.Fatalf("failed to parse result templates: %v", err)
-	}
+	// Parse templates
+	indexTmpl = mustParse("templates/App.html", "templates/pages/index.html")
+	errorTmpl = mustParse("templates/App.html", "templates/pages/error.html")
+	resultTmpl = mustParse("templates/App.html", "templates/pages/result.html")
 
 	// Register HTTP routes
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("templates/css"))))
 	http.HandleFunc("/", indexHandler)           // GET requests to / serve the home page
 	http.HandleFunc("/ascii-art", submitHandler) // POST requests to /ascii-art generate ASCII art (server-side)
-
 }
