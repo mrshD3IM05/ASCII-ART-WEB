@@ -54,21 +54,21 @@ The backend uses standard HTTP handlers to manage requests and responses.
 
 The application utilizes Go's `html/template` package with a modular structure.
 
-*   **`templates/App.html` (Layout)**:
+*   **`frontend/App.html` (Layout)**:
     *   Acts as the master template containing the common structure (HTML boilerplate, header).
     *   Includes inline CSS styles for the application theme (`.card`, `.btn`, etc.).
     *   Defines a `{{block "content" .}}{{end}}` placeholder where other templates inject their specific content.
 
-*   **`templates/pages/index.html` (Home)**:
+*   **`frontend/pages/index.html` (Home)**:
     *   Renders the main input interface.
     *   Includes the text area for user input and radio buttons for font selection.
     *   Fills the "content" block of `App.html`.
 
-*   **`templates/pages/result.html` (Output)**:
+*   **`frontend/pages/result.html` (Output)**:
     *   Displays the generated ASCII art inside a `<pre>` tag.
     *   Provides a "Go Back" button to return to the home page.
     *   Fills the "content" block of `App.html`.
 
-*   **`templates/pages/error.html` (Error)**:
+*   **`frontend/pages/error.html` (Error)**:
     *   Displays user-friendly error messages (e.g., "404 Not Found", "500 Internal Server Error").
     *   Fills the "content" block of `App.html`.

@@ -20,9 +20,9 @@ func Handler() {
 	}
 
 	// Parse templates
-	indexTmpl = mustParse("templates/App.html", "templates/pages/index.html")
-	errorTmpl = mustParse("templates/App.html", "templates/pages/error.html")
-	resultTmpl = mustParse("templates/App.html", "templates/pages/result.html")
+	indexTmpl = mustParse("frontend/App.html", "frontend/pages/index.html")
+	errorTmpl = mustParse("frontend/App.html", "frontend/pages/error.html")
+	resultTmpl = mustParse("frontend/App.html", "frontend/pages/result.html")
 
 	// Register HTTP routes
 	http.HandleFunc("/", indexHandler)           // GET requests to / serve the home page

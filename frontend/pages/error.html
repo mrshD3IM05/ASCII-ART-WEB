@@ -1,0 +1,14 @@
+{{define "content"}}
+<div class="card">
+  <h1 class="status">{{.Status}}</h1>
+  <h1>{{.Title}}</h1>
+  <p>{{.Message}}</p>
+  {{if .Detail}}
+  <h3>Details</h3>
+  <pre>{{.Detail}}</pre>
+  {{end}}
+  <p><a href="/">Back to home</a></p>
+</div>
+{{end}}
+
+{{define "error"}}{{template "base" .}}{{end}}
