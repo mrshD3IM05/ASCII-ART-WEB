@@ -5,11 +5,14 @@ import (
 	"net/http"
 )
 
-// indexTemplate is the main template for the home page
-var indexTemplate *template.Template
+// indexTmpl holds the parsed templates for the index page
+var indexTmpl *template.Template
 
-// errorTemplate is the template for all non-200 error pages
-var errorTemplate *template.Template
+// errorTmpl holds the parsed templates for the error page
+var errorTmpl *template.Template
+
+// resultTmpl holds the parsed templates for the result page
+var resultTmpl *template.Template
 
 type ErrorPageData struct {
 	Status  int

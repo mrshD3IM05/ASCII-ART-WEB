@@ -12,12 +12,12 @@ func CreateASCIIArtTable(input, font string) (string, int, string) {
 	asciiArt, err := loadCharacterArt(font)
 	if err != nil {
 		log.Printf("failed to load font %s: %v", font, err)
-		return "", 500, "Intenal Error: font file not found"
+		return "", http.StatusNotFound, "Intenal Error: font file not found"
 	}
 
 	input1 := strings.ReplaceAll(input, "\r", "")
 	if strings.Trim(input1, "\n") == "" {
-		return input, 200, ""
+		return input, http.StatusOK, ""
 	}
 
 	var result strings.Builder
@@ -42,5 +42,5 @@ func CreateASCIIArtTable(input, font string) (string, int, string) {
 			result.WriteString("\n")
 		}
 	}
-	return result.String(), 200, ""
+	return result.String(), http.StatusOK, ""
 }

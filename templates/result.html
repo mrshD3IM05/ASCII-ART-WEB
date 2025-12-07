@@ -1,0 +1,11 @@
+{{define "content"}}
+<div class="card">
+    <h2>Result</h2>
+    <div id="result" style="white-space: pre;">
+        {{.Result}}
+    </div>
+    <p><a href="/">Go Back</a></p>
+</div>
+{{end}}
+
+{{define "result"}}{{template "base" .}}{{end}}

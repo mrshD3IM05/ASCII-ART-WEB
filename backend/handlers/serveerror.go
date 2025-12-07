@@ -26,7 +26,7 @@ func serveError(w http.ResponseWriter, status int) {
 	// Render the error template
 
 	w.WriteHeader(status)
-	if err := errorTemplate.Execute(w, data); err != nil {
+	if err := errorTmpl.ExecuteTemplate(w, "error", data); err != nil {
 		log.Printf("error template execution error: %v", err)
 		// Fallback textual response
 		http.Error(w, http.StatusText(status), status)

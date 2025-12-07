@@ -33,23 +33,32 @@ func submitHandler(w http.ResponseWriter, r *http.Request) {
 	// Handle ASCII art generation response using a switch that maps statuses to error pages
 	switch statusCode {
 	case http.StatusOK:
-		// Success: render the template with ASCII art
+		// Success: render the template with ASCII art and echo the inputs
 		escapedASCII := html.EscapeString(asciiArt)
-		data := struct{ Result template.HTML }{
-			Result: template.HTML("<pre>" + escapedASCII + "</pre>"),
+		data := struct {
+			Title    string
+			Result   template.HTML
+			RawInput string
+			Font     string
+		}{
+			Title:    "ASCII Art Web",
+			Result:   template.HTML("<pre>" + escapedASCII + "</pre>"),
+			RawInput: userText,
+			Font:     fontName,
 		}
 		w.WriteHeader(http.StatusOK)
-		if err := indexTemplate.Execute(w, data); err != nil {
+		if err := resultTmpl.ExecuteTemplate(w, "result", data); err != nil {
 			log.Printf("template execution error: %v", err)
 			serveError(w, http.StatusInternalServerError)
 			return
 		}
 
 	case http.StatusNotFound, http.StatusBadRequest:
-		// Font not found
+		// Render an error page for known client errors
 		serveError(w, statusCode)
+
 	default:
-		// Unexpected status code
+		// Unexpected status code -> show generic server error
 		serveError(w, http.StatusInternalServerError)
 	}
 }

@@ -14,9 +14,16 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Serve the home page with an empty Result initially
-	data := struct{ Result template.HTML }{}
+	data := struct {
+		Title    string
+		Result   template.HTML
+		RawInput string
+		Font     string
+	}{
+		Title: "ASCII Art Web",
+	}
 	w.WriteHeader(http.StatusOK)
-	if err := indexTemplate.Execute(w, data); err != nil {
+	if err := indexTmpl.ExecuteTemplate(w, "index", data); err != nil {
 		log.Printf("template execution error: %v", err)
 		serveError(w, http.StatusInternalServerError)
 		return
