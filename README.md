@@ -48,13 +48,15 @@ The backend uses standard HTTP handlers to manage requests and responses.
 | **`indexHandler`** | `/` | `GET` | Serves the home page. It renders `index.html` within the `App.html` layout, displaying the input form. Returns `404 Not Found` for any unknown paths. |
 | **`submitHandler`** | `/ascii-art` | `POST` | Processes form submissions. It validates the request, generates the ASCII art, and renders `result.html` with the output. Errors (e.g., bad request) are handled via `serveError`. |
 | **`serveError`** | N/A | N/A | A utility function used by other handlers to render standardized error pages using `error.html`. |
+| **`renderTemplate`** | N/A | N/A | A helper function defined in `rendertemplate.go` to standardize template execution and error handling. |
 
 ### Templates
 
 The application utilizes Go's `html/template` package with a modular structure.
 
 *   **`templates/App.html` (Layout)**:
-    *   Acts as the master template containing the common structure (HTML boilerplate, CSS links, header).
+    *   Acts as the master template containing the common structure (HTML boilerplate, header).
+    *   Includes inline CSS styles for the application theme (`.card`, `.btn`, etc.).
     *   Defines a `{{block "content" .}}{{end}}` placeholder where other templates inject their specific content.
 
 *   **`templates/pages/index.html` (Home)**:
@@ -64,7 +66,7 @@ The application utilizes Go's `html/template` package with a modular structure.
 
 *   **`templates/pages/result.html` (Output)**:
     *   Displays the generated ASCII art inside a `<pre>` tag.
-    *   Provides a navigation link to return to the home page.
+    *   Provides a "Go Back" button to return to the home page.
     *   Fills the "content" block of `App.html`.
 
 *   **`templates/pages/error.html` (Error)**:

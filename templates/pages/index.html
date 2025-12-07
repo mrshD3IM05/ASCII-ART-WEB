@@ -1,8 +1,9 @@
 {{define "content"}}
+<h1>{{.Title}}</h1>
 <div class="card">
   <form action="/ascii-art" method="post">
-    <label>Input text:</label><br>
-    <textarea id="text" name="text" required>{{.RawInput}}</textarea><br>
+
+    <textarea placeholder="Enter text here" name="text" required>{{.RawInput}}</textarea><br>
 
     <label>Font:</label>
     <div id="font" class="radio-group">
