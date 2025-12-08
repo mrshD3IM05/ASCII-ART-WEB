@@ -1,11 +1,11 @@
 {{define "content"}}
 <h1>Result</h1>
-<div class="card">
+
     <div id="result" style="white-space: pre;">
         {{.Result}}
     </div>
     <button type="button" onclick="window.location.href='/'">Go Back</button>
-</div>
+
 {{end}}
 
 {{define "result"}}{{template "base" .}}{{end}}

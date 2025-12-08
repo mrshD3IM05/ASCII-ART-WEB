@@ -10,6 +10,9 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		serveError(w, http.StatusNotFound)
 		return
+	} else if r.Method != http.MethodGet {
+		serveError(w, http.StatusBadRequest)
+		return
 	}
 
 	// Serve the home page with an empty Result initially

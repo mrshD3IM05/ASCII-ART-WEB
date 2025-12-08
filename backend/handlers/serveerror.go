@@ -12,16 +12,10 @@ func serveError(w http.ResponseWriter, status int) {
 	switch status {
 	case http.StatusNotFound:
 		data = ErrNotFound
-	case http.StatusInternalServerError:
-		data = ErrInternalServer
 	case http.StatusBadRequest:
 		data = ErrBadRequest
 	default:
-		data = ErrorPageData{
-			Status:  status,
-			Title:   http.StatusText(status),
-			Message: "An unexpected error occurred.",
-		}
+		data = ErrInternalServer
 	}
 	// Render the error template
 
