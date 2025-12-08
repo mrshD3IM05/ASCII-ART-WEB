@@ -32,7 +32,6 @@ The core logic resides in reduced complexity steps:
     *   CHECKING IF WE HAVE 8 LINES PER CHARACTER FOR ALL 95 CHARACTERS AND IF NOT, RETURNING ERROR AND STATUS CODE 400.
 3.  **Processing**:
     *   REPLACE ALL \r WITH EMPTY STRING.
-    *   TRIM THE INPUT STRING TO REMOVE LEADING AND TRAILING NEWLINES.
     *   CHECKING IF THE INPUT STRING IS EMPTY OR IF IT IS JUST WHITESPACES. IF IT IS, RETURNING THE INPUT STRING AS IS.
     *   The input string is split by newlines to handle multi-line input.
     *   For each line of input, the program iterates through the 8 vertical "slices" of the font characters EXCEPT FOR EMPTY LINES. WE JUST PRINT THE EMPTY LINE AND CONTINUE.
