@@ -1,6 +1,7 @@
 package ASCII
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -19,7 +20,7 @@ func loadCharacterArt(font string) ([]string, error) {
 	spl := strings.Split(asciifile, "\n")
 	if len(spl) < 95*8 {
 		log.Printf("error reading font %s: %v", font, "font file incomplete")
-		return nil, err
+		return nil, fmt.Errorf("incomplete")
 	}
 	return spl, nil
 }

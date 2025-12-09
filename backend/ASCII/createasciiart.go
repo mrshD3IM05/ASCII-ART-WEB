@@ -23,6 +23,9 @@ func CreateASCIIArtTable(input, font string) (string, int) {
 	var result string
 	var temp string
 	split := strings.Split(input1, "\n")
+	if len(split) < 95*9 {
+		return "", http.StatusBadRequest
+	}
 	for _, line := range split {
 		if line == "" {
 			result += "\n"
