@@ -1,20 +1,14 @@
 {{define "content"}}
-<h1>{{.Title}}</h1>
 <div class="card">
   <form action="/ascii-art" method="post">
-
-    <textarea placeholder="Enter text here" name="text" required>{{.RawInput}}</textarea><br>
-
+    <textarea placeholder="Enter text here" name="text" required></textarea><br>
     <div id="font" class="radio-group">
       <label><input type="radio" name="font" value="standard" checked> Standard</label>
       <label><input type="radio" name="font" value="shadow"> Shadow</label>
       <label><input type="radio" name="font" value="thinkertoy"> Thinkertoy</label>
     </div>
-
     <button type="submit">Generate ASCII</button>
   </form>
-
-
 </div>
 {{end}}
 

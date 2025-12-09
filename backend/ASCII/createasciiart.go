@@ -6,41 +6,45 @@ import (
 	"strings"
 )
 
-func CreateASCIIArtTable(input, font string) (string, int, string) {
+func CreateASCIIArtTable(input, font string) (string, int) {
 	font = strings.ToLower(font)
 
 	asciiArt, err := loadCharacterArt(font)
 	if err != nil {
 		log.Printf("failed to load font %s: %v", font, err)
-		return "", http.StatusNotFound, "Intenal Error: font file not found"
+		return "", http.StatusNotFound
 	}
 
 	input1 := strings.ReplaceAll(input, "\r", "")
 	if strings.Trim(input1, "\n") == "" {
-		return input, http.StatusOK, ""
+		return input, http.StatusOK
 	}
 
-	var result strings.Builder
+	var result string
+	var temp string
 	split := strings.Split(input1, "\n")
 	for _, line := range split {
 		if line == "" {
-			result.WriteString("\n")
+			result += "\n"
 			continue
 		}
 		for i := 0; i < 8; i++ {
 			for _, char := range line {
 				if char < 32 || char > 126 {
-					return "", http.StatusBadRequest, "Bad Request: character out of range"
+					return "", http.StatusBadRequest
 				}
 				index := int(char - 32)
 				if index*8+i >= len(asciiArt) {
 					log.Printf("index out of bounds: %d", index*8+i)
-					return "", http.StatusInternalServerError, "Internal Server Error"
+					return "", http.StatusInternalServerError
 				}
-				result.WriteString(asciiArt[index*8+i])
+				temp += asciiArt[index*8+i]
 			}
-			result.WriteString("\n")
+			temp = (strings.TrimRight(temp, " "))
+			result += temp + "\n"
+			temp = ""
 		}
 	}
-	return result.String(), http.StatusOK, ""
+	result = (strings.TrimRight(result, "\n"))
+	return result, http.StatusOK
 }

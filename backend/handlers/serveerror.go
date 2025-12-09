@@ -1,35 +1,22 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
 )
 
-// serveError renders the `errorTemplate` with dynamic content.
-func serveError(w http.ResponseWriter, status int) {
+// ServeError renders the `errorTemplate` with dynamic content.
+func ServeError(w http.ResponseWriter, status int) {
 	// Prepare data for the template
-	var data ErrorPageData
+	var data pageData
 	switch status {
 	case http.StatusNotFound:
 		data = ErrNotFound
-	case http.StatusInternalServerError:
-		data = ErrInternalServer
 	case http.StatusBadRequest:
 		data = ErrBadRequest
 	default:
-		data = ErrorPageData{
-			Status:  status,
-			Title:   http.StatusText(status),
-			Message: "An unexpected error occurred.",
-		}
+		data = ErrInternalServer
 	}
-	// Render the error template
 
 	w.WriteHeader(status)
-	if err := errorTmpl.ExecuteTemplate(w, "error", data); err != nil {
-		log.Printf("error template execution error: %v", err)
-		// Fallback textual response
-		http.Error(w, http.StatusText(status), status)
-		return
-	}
+	renderTemplate(w, errorTmpl, "error", data)
 }

@@ -46,8 +46,8 @@ The backend uses standard HTTP handlers to manage requests and responses.
 | Function | Endpoint | Method | Description |
 | :--- | :--- | :--- | :--- |
 | **`indexHandler`** | `/` | `GET` | Serves the home page. It renders `index.html` within the `App.html` layout, displaying the input form. Returns `404 Not Found` for any unknown paths. |
-| **`submitHandler`** | `/ascii-art` | `POST` | Processes form submissions. It validates the request, generates the ASCII art, and renders `result.html` with the output. Errors (e.g., bad request) are handled via `serveError`. |
-| **`serveError`** | N/A | N/A | A utility function used by other handlers to render standardized error pages using `error.html`. |
+| **`submitHandler`** | `/ascii-art` | `POST` | Processes form submissions. It validates the request, generates the ASCII art, and renders `result.html` with the output. Errors (e.g., bad request) are handled via `ServeError`. |
+| **`ServeError`** | N/A | N/A | A utility function used by other handlers to render standardized error pages using `error.html`. |
 | **`renderTemplate`** | N/A | N/A | A helper function defined in `rendertemplate.go` to standardize template execution and error handling. |
 
 ### Templates

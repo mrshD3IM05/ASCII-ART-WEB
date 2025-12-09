@@ -12,13 +12,13 @@ import (
 func submitHandler(w http.ResponseWriter, r *http.Request) {
 	// Validate HTTP method
 	if r.Method != http.MethodPost {
-		serveError(w, http.StatusBadRequest)
+		ServeError(w, http.StatusBadRequest)
 		return
 	}
 
 	// Parse form data from the request
 	if err := r.ParseForm(); err != nil {
-		serveError(w, http.StatusBadRequest)
+		ServeError(w, http.StatusBadRequest)
 		return
 	}
 
@@ -27,33 +27,26 @@ func submitHandler(w http.ResponseWriter, r *http.Request) {
 	fontName := r.FormValue("font")
 
 	// Generate ASCII art using the selected font
-	asciiArt, statusCode, _ := ASCII.CreateASCIIArtTable(userText, fontName)
+	asciiArt, statusCode := ASCII.CreateASCIIArtTable(userText, fontName)
 
 	// Handle ASCII art generation response using a switch that maps statuses to error pages
 	switch statusCode {
 	case http.StatusOK:
 		// Success: render the template with ASCII art and echo the inputs
 		escapedASCII := html.EscapeString(asciiArt)
-		data := struct {
-			Title    string
-			Result   template.HTML
-			RawInput string
-			Font     string
-		}{
-			Title:    "ASCII Art Web",
-			Result:   template.HTML("<pre>" + escapedASCII + "</pre>"),
-			RawInput: userText,
-			Font:     fontName,
+		data := pageData{
+			Title:  "ASCII Art Web - Result",
+			Result: template.HTML("<pre>" + escapedASCII + "</pre>"),
 		}
 		w.WriteHeader(http.StatusOK)
 		renderTemplate(w, resultTmpl, "result", data)
 
-	case http.StatusNotFound, http.StatusBadRequest:
+	case http.StatusNotFound, http.StatusBadRequest, http.StatusInternalServerError:
 		// Render an error page for known client errors
-		serveError(w, statusCode)
+		ServeError(w, statusCode)
 
 	default:
 		// Unexpected status code -> show generic server error
-		serveError(w, http.StatusInternalServerError)
+		ServeError(w, http.StatusInternalServerError)
 	}
 }

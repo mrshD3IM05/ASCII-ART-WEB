@@ -12,15 +12,19 @@
       color: #f0f0f0;
       font-family: 'Courier New', Courier, monospace;
       margin: 0;
-      padding: 0;
-      height: 100vh;
+      padding: 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
+      /* Align to top to allow scrolling */
     }
 
     .container {
       text-align: center;
+      width: 100%;
+      height: 100%;
     }
 
     h1 {
@@ -35,8 +39,11 @@
       padding: 40px;
       border-radius: 15px;
       box-shadow: 0 0 25px rgba(255, 127, 80, 0.5);
-      width: 400px;
-      max-width: 90%;
+      width: 95%;
+      margin: 0 auto;
+      /* removed max-width to allow full width */
+      overflow-x: auto;
+      /* Allow horizontal scroll for large ASCII art */
     }
 
     label {
@@ -60,10 +67,10 @@
     /* 🔥 Your textarea styling */
     textarea {
       width: 100%;
-      height: 120px;
-      min-height: 120px;
-      max-height: 240px;
-      padding: 10px 0;
+      height: 40vh;
+      /* Takes up significant vertical space */
+      min-height: 300px;
+      padding: 10px;
       margin-top: 8px;
       border-radius: 8px;
       border: none;
@@ -72,6 +79,7 @@
       font-size: 1em;
       font-family: 'Courier New', Courier, monospace;
       resize: vertical;
+      box-sizing: border-box;
     }
 
     .radio-group {
@@ -114,13 +122,27 @@
       background-color: #ff9b6a;
       box-shadow: 0 0 15px #ff9b6a;
     }
+
+    #result {
+      text-align: left;
+      white-space: pre;
+    }
+
+    pre {
+      padding: 20px;
+      border-radius: 10px;
+      overflow: auto;
+      white-space: pre;
+      font-size: 14px;
+      line-height: 1.1;
+    }
   </style>
 </head>
 
 <body>
 
 
-  <main>
+  <main style="width: -webkit-fill-available;">
     <div class="container">
 
       {{block "content" .}}{{end}}
