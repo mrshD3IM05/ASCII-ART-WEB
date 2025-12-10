@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+var trim bool = false
+
 func CreateASCIIArtTable(input, font string) (string, int) {
 	font = strings.ToLower(font)
 
@@ -20,12 +22,13 @@ func CreateASCIIArtTable(input, font string) (string, int) {
 		return input, http.StatusOK
 	}
 
+	if len(input1) > 2000 {
+		return "", http.StatusBadRequest
+	}
+
 	var result string
 	var temp string
 	split := strings.Split(input1, "\n")
-	if len(split) < 95*9 {
-		return "", http.StatusBadRequest
-	}
 	for _, line := range split {
 		if line == "" {
 			result += "\n"
@@ -43,11 +46,15 @@ func CreateASCIIArtTable(input, font string) (string, int) {
 				}
 				temp += asciiArt[index*8+i]
 			}
-			temp = (strings.TrimRight(temp, " "))
+			if trim {
+				temp = (strings.TrimRight(temp, " "))
+			}
 			result += temp + "\n"
 			temp = ""
 		}
 	}
-	result = (strings.TrimRight(result, "\n"))
+	if trim {
+		result = (strings.TrimRight(result, "\n"))
+	}
 	return result, http.StatusOK
 }

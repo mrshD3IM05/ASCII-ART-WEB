@@ -1,4 +1,5 @@
-{{define "content"}}
+{{define "error"}}
+{{template "header" .}}
 <div class="card">
   <h1 class="status">{{.Status}}</h1>
   <h1>{{.Title}}</h1>
@@ -9,6 +10,5 @@
   {{end}}
   <p><a href="/">Back to home</a></p>
 </div>
+{{template "footer" .}}
 {{end}}
-
-{{define "error"}}{{template "base" .}}{{end}}

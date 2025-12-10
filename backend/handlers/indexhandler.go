@@ -15,7 +15,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Serve the home page with an empty Result initially
 	w.WriteHeader(http.StatusOK)
-	renderTemplate(w, indexTmpl, "index", indexData)
+	renderTemplate(w, "index", indexData)
 }

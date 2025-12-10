@@ -16,7 +16,6 @@ func ServeError(w http.ResponseWriter, status int) {
 	default:
 		data = ErrInternalServer
 	}
-
 	w.WriteHeader(status)
-	renderTemplate(w, errorTmpl, "error", data)
+	renderTemplate(w, "error", data)
 }

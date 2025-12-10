@@ -1,7 +1,8 @@
-{{define "content"}}
+{{define "index"}}
+{{template "header" .}}
 <div class="card">
   <form action="/ascii-art" method="post">
-    <textarea placeholder="Enter text here" name="text" required></textarea><br>
+    <textarea placeholder="Enter text here" name="text" maxlength="2000" required></textarea><br>
     <div id="font" class="radio-group">
       <label><input type="radio" name="font" value="standard" checked> Standard</label>
       <label><input type="radio" name="font" value="shadow"> Shadow</label>
@@ -10,6 +11,5 @@
     <button type="submit">Generate ASCII</button>
   </form>
 </div>
+{{template "footer" .}}
 {{end}}
-
-{{define "index"}}{{template "base" .}}{{end}}

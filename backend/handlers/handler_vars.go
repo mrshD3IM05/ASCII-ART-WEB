@@ -5,14 +5,8 @@ import (
 	"net/http"
 )
 
-// indexTmpl holds the parsed templates for the index page
-var indexTmpl *template.Template
-
-// errorTmpl holds the parsed templates for the error page
-var errorTmpl *template.Template
-
-// resultTmpl holds the parsed templates for the result page
-var resultTmpl *template.Template
+// templates holds all parsed templates
+var templates *template.Template
 
 type pageData struct {
 	Status  int

@@ -39,7 +39,7 @@ func submitHandler(w http.ResponseWriter, r *http.Request) {
 			Result: template.HTML("<pre>" + escapedASCII + "</pre>"),
 		}
 		w.WriteHeader(http.StatusOK)
-		renderTemplate(w, resultTmpl, "result", data)
+		renderTemplate(w, "result", data)
 
 	case http.StatusNotFound, http.StatusBadRequest, http.StatusInternalServerError:
 		// Render an error page for known client errors

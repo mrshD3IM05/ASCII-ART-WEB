@@ -11,7 +11,7 @@ import (
 // Call this once during server startup
 func Handler() {
 
-	// Helper function to parse templates
+	// Parse all templates
 	mustParse := func(files ...string) *template.Template {
 		tmpl, err := template.ParseFiles(files...)
 		if err != nil {
@@ -24,12 +24,7 @@ func Handler() {
 		}
 		return tmpl
 	}
-
-	// Parse templates
-	errorTmpl = mustParse("frontend/App.html", "frontend/pages/error.html")
-	indexTmpl = mustParse("frontend/App.html", "frontend/pages/index.html")
-	resultTmpl = mustParse("frontend/App.html", "frontend/pages/result.html")
-
+	templates = mustParse("frontend/common.html", "frontend/index.html", "frontend/result.html", "frontend/error.html")
 	// Register HTTP routes
 	http.HandleFunc("/", indexHandler)           // GET requests to / serve the home page
 	http.HandleFunc("/ascii-art", submitHandler) // POST requests to /ascii-art generate ASCII art (server-side)
